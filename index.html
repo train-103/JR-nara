@@ -235,16 +235,6 @@ function updateStay(trainKey, x, isStation) {
 }
 
 // ===============================
-// 両数 → 丸数字（①〜⑭）変換
-// ===============================
-function carsToCircle(num) {
-  const circles = [
-    "", "①","②","③","④","⑤","⑥","⑦",
-    "⑧","⑨","⑩","⑪","⑫","⑬","⑭"
-  ];
-  return circles[num] || "";
-}
-// ===============================
 // 列車描画
 // ===============================
 function drawTrains(trains) {
@@ -297,12 +287,9 @@ const to = isStationary ? from : toRaw;
 
     const noText = train.no;
 
-// ★ 両数取得（numberOfCars）
-const cars = Number(train.numberOfCars) || 0;
-const carsText = carsToCircle(cars);
 
 // ★ 行き先＋両数（⑧など）を合成
-const infoText = ` ${type} ${train.dest.text}${carsText}`;
+const destText = train.dest || ""; // ← ここを修正
 
     const noW = ctx.measureText(noText).width + 10;
     const infoW = ctx.measureText(infoText).width + 10;
@@ -456,3 +443,4 @@ setInterval(update, 30000);
 </script>
 </body>
 </html>
+
